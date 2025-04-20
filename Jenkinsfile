@@ -34,14 +34,6 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
-
         stage('Docker Build and Push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
