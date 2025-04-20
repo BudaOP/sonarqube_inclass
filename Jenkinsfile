@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'       // Name from Jenkins tool config
-        jdk 'Java_Home'     // Name from Jenkins tool config
+        maven 'Maven'
+        jdk 'Java_Home'
     }
 
     environment {
-        SONARQUBE_ENV = 'SonarQubeServer'      // From Jenkins Global Config
-        DOCKER_IMAGE = 'your-dockerhub-username/sonarqube-inclass:latest'
+        SONARQUBE_ENV = 'SonarQubeServer'
+        DOCKER_IMAGE = 'ibudaa/sonarqube-inclass:latest'
     }
 
     stages {
