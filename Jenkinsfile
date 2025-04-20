@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'       // Use the name exactly as in Jenkins Global Tool Config
-        jdk 'Java_Home'     // Use the name you set for JDK in Jenkins
+        maven 'Maven'       // Name defined in Jenkins Global Tool Configuration
+        jdk 'Java_Home'     // JDK name in Jenkins Global Tool Configuration
     }
 
     environment {
-        SONARQUBE_ENV = 'SonarQubeServer' // Name you gave your SonarQube server config
+        SONARQUBE_ENV = 'SonarQubeServer' // SonarQube server name in Jenkins config
     }
 
     stages {
@@ -19,15 +19,16 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                bat '"%MAVEN_HOME%\\bin\\mvn" clean install'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_ENV}") {
-                    bat "mvn sonar:sonar -Dsonar.token=%SONAR_TOKEN%"
-
+                withCredentials([string(credentialsId: 'sonar_token', variable: 'SONAR_TOKEN')]) {
+                    withSonarQubeEnv("${SONARQUBE_ENV}") {
+                        bat '"%MAVEN_HOME%\\bin\\mvn" sonar:sonar -Dsonar.token=%SONAR_TOKEN%'
+                    }
                 }
             }
         }
