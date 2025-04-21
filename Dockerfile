@@ -1,10 +1,13 @@
-FROM maven:3.9.6-eclipse-temurin-21 AS build
-WORKDIR /app
-COPY demo/ .
-RUN mvn clean package
+FROM maven:latest
 
-FROM eclipse-temurin:21-jre
+LABEL authors="ibudaa"
+
 WORKDIR /app
-COPY --from=build /app/target/demo-1.0-SNAPSHOT.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+COPY pom.xml /app/
+
+COPY . /app/
+
+RUN mvn package
+
+CMD ["java", "-jar", "target/app.jar"]
