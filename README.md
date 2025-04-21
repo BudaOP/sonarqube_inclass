@@ -1,3 +1,3 @@
 # Docker Playground img
 
-![docker_playground](https://github.com/user-attachments/assets/eefc74c6-10ab-4e67-adc2-8f9348ccd5b0)
+![docker_playground](https://github.com/user-attachments/assets/a4a1a1b9-a249-49eb-b524-3bba02c7942e)
