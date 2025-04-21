@@ -1,13 +1,11 @@
 FROM maven:latest
 
-LABEL authors="ibudaa"
+LABEL author="ibudaa"
 
 WORKDIR /app
 
-COPY pom.xml /app/
+COPY . .
 
-COPY . /app/
+RUN mvn clean package
 
-RUN mvn package
-
-CMD ["java", "-jar", "target/app.jar"]
+CMD ["java", "-jar", "target/demo-1.0-SNAPSHOT.jar"]
